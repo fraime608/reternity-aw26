@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>fraime608 für Reternity</title>
+<style>
+  :root {
+    --bg: #f4f2ee;
+    --ink: #1c1c1c;
+    --mute: #77736c;
+    --line: #dcd8d0;
+    --gutter: clamp(16px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, video { display: block; width: 100%; height: auto; }
+  .wrap { padding: 0 var(--gutter); max-width: 1440px; margin: 0 auto; }
+
+  header.top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 22px var(--gutter); max-width: 1440px; margin: 0 auto;
+    font-size: 13px; letter-spacing: .02em;
+  }
+  header.top b { font-weight: 700; letter-spacing: -.01em; font-size: 15px; }
+  header.top span { color: var(--mute); }
+
+  .intro { padding: clamp(48px, 9vw, 128px) 0 clamp(40px, 6vw, 88px); }
+  .intro h1 {
+    font-size: clamp(34px, 6.2vw, 92px); line-height: .98; letter-spacing: -.045em;
+    font-weight: 500; max-width: 14ch;
+  }
+  .intro p { margin-top: 28px; max-width: 34ch; font-size: clamp(17px, 1.6vw, 21px); color: var(--ink); }
+
+  section.dir { border-top: 1px solid var(--line); padding: clamp(28px, 4vw, 48px) 0 clamp(56px, 8vw, 112px); }
+  .dir-head {
+    display: grid; grid-template-columns: 80px 1fr; gap: 0 24px; margin-bottom: clamp(28px, 4vw, 48px);
+  }
+  .num { font-size: 13px; color: var(--mute); padding-top: 6px; }
+  .dir-head h2 { font-size: clamp(26px, 3.4vw, 44px); letter-spacing: -.035em; font-weight: 500; line-height: 1.05; }
+  .dir-head p { grid-column: 2; margin-top: 14px; max-width: 46ch; font-size: 17px; }
+  .meta { grid-column: 2; margin-top: 14px; font-size: 13px; color: var(--mute); letter-spacing: .02em; }
+
+  /* 01: Wisch-Video im Handyrahmen + Panorama */
+  .swipe { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: clamp(24px, 5vw, 80px); align-items: center; }
+  .phone {
+    background: #fff; border-radius: 34px; padding: 10px; border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -30px rgba(40, 32, 20, .35);
+  }
+  .phone video { border-radius: 26px; aspect-ratio: 3 / 4; object-fit: cover; background: #fff; }
+  .phone .dots { display: flex; justify-content: center; gap: 5px; padding: 12px 0 4px; }
+  .phone .dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--line); }
+  .phone .dots i:first-child { background: #3a86ff; }
+  .swipe-note { font-size: 17px; max-width: 30ch; }
+  .swipe-note small { display: block; margin-top: 12px; font-size: 13px; color: var(--mute); }
+
+  .label { font-size: 13px; color: var(--mute); margin: clamp(40px, 6vw, 72px) 0 14px; letter-spacing: .02em; }
+  .pano {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; background: #fff;
+    scrollbar-width: none;
+  }
+  .pano::-webkit-scrollbar { display: none; }
+  .pano img { flex: 0 0 25%; width: 25%; scroll-snap-align: start; }
+
+  .stories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 1.6vw, 20px); max-width: 760px; }
+  .stories img { aspect-ratio: 9 / 16; object-fit: cover; border-radius: 10px; background: #fff; }
+
+  /* 02: Street-Serie */
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 1.2vw, 16px); }
+  .grid img { aspect-ratio: 3 / 4; object-fit: cover; background: #e6e2da; }
+
+  .close { border-top: 1px solid var(--line); padding: clamp(48px, 8vw, 112px) 0; }
+  .close h2 { font-size: clamp(30px, 5vw, 68px); letter-spacing: -.045em; font-weight: 500; line-height: 1; max-width: 16ch; }
+  .close p { margin-top: 22px; max-width: 40ch; font-size: 17px; }
+  .btn {
+    display: inline-block; margin-top: 32px; padding: 16px 28px; background: var(--ink); color: var(--bg);
+    text-decoration: none; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  }
+  .btn:hover { background: #000; }
+  .close p.reply { margin-top: 28px; font-weight: 700; }
+
+  footer { padding: 24px var(--gutter) 40px; max-width: 1440px; margin: 0 auto; font-size: 12px; color: var(--mute); border-top: 1px solid var(--line); }
+  footer p + p { margin-top: 6px; }
+
+  @media (max-width: 760px) {
+    .dir-head { grid-template-columns: 1fr; }
+    .dir-head p, .meta { grid-column: 1; }
+    .num { padding: 0 0 8px; }
+    .swipe { grid-template-columns: 1fr; }
+    .phone { max-width: 300px; margin: 0 auto; }
+    .swipe-note { max-width: none; }
+    .pano img { flex-basis: 82%; width: 82%; }
+    .grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .grid::-webkit-scrollbar { display: none; }
+    .grid img { flex: 0 0 78%; width: 78%; scroll-snap-align: start; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <b>fraime608</b>
+  <span>für Reternity · Fall Winter 2026</span>
+</header>
+
+<main class="wrap">
+
+  <div class="intro">
+    <h1>Zwei Richtungen für Somewhere Somehow, part two.</h1>
+    <p>Freie Konzepte, ohne Auftrag. Jedes Teil im Bild ist ein echtes Stück aus eurem Shop.</p>
+  </div>
+
+  <section class="dir">
+    <div class="dir-head">
+      <div class="num">01</div>
+      <h2>Ein Carousel für den Feed</h2>
+      <p>Zehn Looks als ein Panorama über vier Slides. Wer wischt, läuft an der Kollektion entlang. Die letzte Slide sammelt die Teile wie ein Poster.</p>
+      <div class="meta">4 Slides · 3:4 · dazu 3 Stories</div>
+    </div>
+
+    <div class="swipe">
+      <div class="phone">
+        <video src="assets/carousel-swipe.mp4" poster="assets/carousel-swipe-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+        <div class="dots"><i></i><i></i><i></i><i></i></div>
+      </div>
+      <p class="swipe-note">So sieht es im Feed aus: Die Figuren laufen über die Schnittkanten weiter, jede Slide steht trotzdem für sich.
+        <small>Unten das ganze Panorama, auf dem Handy zum Selbst-Durchwischen.</small></p>
+    </div>
+
+    <div class="label">Die vier Slides</div>
+    <div class="pano" aria-label="Carousel, vier Slides">
+      <img src="assets/carousel-01.jpg" alt="Slide 1" loading="lazy">
+      <img src="assets/carousel-02.jpg" alt="Slide 2" loading="lazy">
+      <img src="assets/carousel-03.jpg" alt="Slide 3" loading="lazy">
+      <img src="assets/carousel-04.jpg" alt="Slide 4: Poster mit den Teilen der Kollektion" loading="lazy">
+    </div>
+
+    <div class="label">Als Stories</div>
+    <div class="stories">
+      <img src="assets/carousel-story-01.jpg" alt="Story 1" loading="lazy">
+      <img src="assets/carousel-story-02.jpg" alt="Story 2" loading="lazy">
+      <img src="assets/carousel-story-03.jpg" alt="Story 3" loading="lazy">
+    </div>
+  </section>
+
+  <section class="dir">
+    <div class="dir-head">
+      <div class="num">02</div>
+      <h2>Eine Street-Serie für Ads und Stories</h2>
+      <p>Neun Looks im Herbst auf der Straße, im Look von Handyfotos. Gemacht für Ads und Stories, wo polierte Kampagnenbilder schnell untergehen.</p>
+      <div class="meta">9 Looks · 3:4 · auch als Story</div>
+    </div>
+
+    <div class="grid">
+      <img src="assets/look-01.jpg" alt="Look 1" loading="lazy">
+      <img src="assets/look-02.jpg" alt="Look 2" loading="lazy">
+      <img src="assets/look-03.jpg" alt="Look 3" loading="lazy">
+      <img src="assets/look-04.jpg" alt="Look 4" loading="lazy">
+      <img src="assets/look-05.jpg" alt="Look 5" loading="lazy">
+      <img src="assets/look-06.jpg" alt="Look 6" loading="lazy">
+      <img src="assets/look-07.jpg" alt="Look 7" loading="lazy">
+      <img src="assets/look-08.jpg" alt="Look 8" loading="lazy">
+      <img src="assets/look-09.jpg" alt="Look 9" loading="lazy">
+    </div>
+
+    <div class="label">Als Stories</div>
+    <div class="stories">
+      <img src="assets/look-story-01.jpg" alt="Story zu Look 1" loading="lazy">
+      <img src="assets/look-story-05.jpg" alt="Story zu Look 5" loading="lazy">
+      <img src="assets/look-story-07.jpg" alt="Story zu Look 7" loading="lazy">
+    </div>
+  </section>
+
+  <section class="close">
+    <h2>Und für den nächsten Drop?</h2>
+    <p>Wenn euch eine der Richtungen gefällt, zeige ich euch in 15 Minuten, wie daraus laufend Content für eure Drops wird.</p>
+    <p class="reply">Antwortet einfach auf meine Nachricht.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>Tim · Art Director · fraime608</p>
+  <p>Unabhängiges Konzept, nicht mit Reternity verbunden. Die Bilder sind mit KI erstellt, die Produkte stammen aus dem Reternity-Shop.</p>
+</footer>
+
+</body>
+</html>
